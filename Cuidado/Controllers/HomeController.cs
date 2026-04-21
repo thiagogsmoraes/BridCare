@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Cuidado.Models;
+using Cuidado.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cuidado.Controllers

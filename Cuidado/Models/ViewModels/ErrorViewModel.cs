@@ -1,4 +1,4 @@
-namespace Cuidado.Models
+namespace Cuidado.Models.ViewModels
 {
     public class ErrorViewModel
     {
