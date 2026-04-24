@@ -25,9 +25,8 @@ namespace Cuidado.Models
 
         public Institutions() { }
 
-        public Institutions(int id, Users user, string name, string cnpj, string phone, string whatsapp, string email, string adress, Category type, string description, DateTime createdAt)
+        public Institutions(Users user, string name, string cnpj, string phone, string whatsapp, string email, string adress, Category type, string description, DateTime createdAt)
         {
-            Id = id;
             User = user;
             Name = name;
             Cnpj = cnpj;

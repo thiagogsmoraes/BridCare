@@ -27,10 +27,9 @@ namespace Cuidado.Models
 
         public Shifts() { }
 
-        public Shifts(int id, Institutions Institution, DateTime startTime, DateTime endTime, double price, int elderlyQuantity, bool nursingKnowledgeRequired, int caregiversPerShift, string description, ShiftStatus status, Caregivers caregiver, DateTime createdAt)
+        public Shifts(Institutions institution, DateTime startTime, DateTime endTime, double price, int elderlyQuantity, bool nursingKnowledgeRequired, int caregiversPerShift, string description, ShiftStatus status, Caregivers caregiver, DateTime createdAt)
         {
-            Id = id;
-            Institution = Institution;
+            Institution = institution;
             StartTime = startTime;
             EndTime = endTime;
             Price = price;

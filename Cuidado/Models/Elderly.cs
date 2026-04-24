@@ -17,9 +17,8 @@ namespace Cuidado.Models
 
         public Elderly() { }
 
-        public Elderly(int id, Institutions Institution, DateTime birthDate, Gender gender, Condition condition, string notes, DateTime createdAt)
+        public Elderly(Institutions Institution, DateTime birthDate, Gender gender, Condition condition, string notes, DateTime createdAt)
         {
-            Id = id;
             Institution = Institution;
             BirthDate = birthDate;
             Gender = gender;

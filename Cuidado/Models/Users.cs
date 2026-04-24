@@ -18,9 +18,8 @@ namespace Cuidado.Models
 
         public Users() { }
 
-        public Users(int id, string email, Role role, DateTime createdAt)
+        public Users(string email, Role role, DateTime createdAt)
         {
-            Id = id;
             Email = email;
             Role = role;
             CreatedAt = createdAt;

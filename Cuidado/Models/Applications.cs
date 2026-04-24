@@ -18,9 +18,8 @@ namespace Cuidado.Models
 
         public Applications() { }
 
-        public Applications(int id, Shifts shift, Caregivers caregiver, ApplicationStatus status, string message, DateTime appliedAt)
+        public Applications(Shifts shift, Caregivers caregiver, ApplicationStatus status, string message, DateTime appliedAt)
         {
-            Id = id;
             Shift = shift;
             Caregiver = caregiver;
             Status = status;

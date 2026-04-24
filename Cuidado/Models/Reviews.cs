@@ -25,9 +25,8 @@ namespace Cuidado.Models
 
         public Reviews() { }
 
-        public Reviews(int id, Users fromUser, Users toUser, int shiftId, Shifts shift, int rating, string comment, DateTime createdAt)
+        public Reviews(Users fromUser, Users toUser, int shiftId, Shifts shift, int rating, string comment, DateTime createdAt)
         {
-            Id = id;
             FromUser = fromUser;
             ToUser = toUser;
             ShiftId = shiftId;

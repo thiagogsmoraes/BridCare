@@ -26,9 +26,8 @@ namespace Cuidado.Models
 
         public Caregivers() { }
 
-        public Caregivers(int id, Users user, string fullName, string cpf, DateTime birthDate, Gender gender, string phone, string email, string adress, string description, EducationLevel educationLevel, double expectedSalary, DateTime createdAt)
+        public Caregivers(Users user, string fullName, string cpf, DateTime birthDate, Gender gender, string phone, string email, string adress, string description, EducationLevel educationLevel, double expectedSalary, DateTime createdAt)
         {
-            Id = id;
             User = user;
             FullName = fullName;
             CPF = cpf;
