@@ -3,12 +3,12 @@ using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
 {
-    public class Caregivers
+    public class Caregiver
     {
         public int Id { get; set; }
 
         public int UserId { get; set; }
-        public Users User { get; set; }
+        public User User { get; set; }
 
         public string FullName { get; set; }
         public string CPF { get; set; }
@@ -22,11 +22,11 @@ namespace Cuidado.Models
         public double ExpectedSalary { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public ICollection<Applications> Applications { get; set; } = new List<Applications>();
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
 
-        public Caregivers() { }
+        public Caregiver() { }
 
-        public Caregivers(Users user, string fullName, string cpf, DateTime birthDate, Gender gender, string phone, string email, string adress, string description, EducationLevel educationLevel, double expectedSalary, DateTime createdAt)
+        public Caregiver(User user, string fullName, string cpf, DateTime birthDate, Gender gender, string phone, string email, string adress, string description, EducationLevel educationLevel, double expectedSalary, DateTime createdAt)
         {
             User = user;
             FullName = fullName;
@@ -44,12 +44,12 @@ namespace Cuidado.Models
 
 
         //Adding and Removing from Application List
-        public void AddApplication(Applications application)
+        public void AddApplication(Application application)
         {
             Applications.Add(application);
         }
 
-        public void RemoveApplication(Applications application)
+        public void RemoveApplication(Application application)
         {
             Applications.Remove(application);
         }

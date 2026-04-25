@@ -7,7 +7,7 @@ namespace Cuidado.Models
         public int Id { get; set; }
 
         public int InstitutionId { get; set; }
-        public Institutions Institution { get; set; }
+        public Institution Institution { get; set; }
 
         public DateTime BirthDate { get; set; }
         public Gender Gender { get; set; }
@@ -17,7 +17,7 @@ namespace Cuidado.Models
 
         public Elderly() { }
 
-        public Elderly(Institutions Institution, DateTime birthDate, Gender gender, Condition condition, string notes, DateTime createdAt)
+        public Elderly(Institution Institution, DateTime birthDate, Gender gender, Condition condition, string notes, DateTime createdAt)
         {
             Institution = Institution;
             BirthDate = birthDate;

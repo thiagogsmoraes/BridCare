@@ -57,7 +57,7 @@ namespace Cuidado.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instituitions",
+                name: "Institutions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -75,9 +75,9 @@ namespace Cuidado.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instituitions", x => x.Id);
+                    table.PrimaryKey("PK_Institutions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Instituitions_Users_UserId",
+                        name: "FK_Institutions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -85,7 +85,7 @@ namespace Cuidado.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Elderly",
+                name: "Elderlies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -99,11 +99,11 @@ namespace Cuidado.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Elderly", x => x.Id);
+                    table.PrimaryKey("PK_Elderlies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Elderly_Instituitions_InstitutionId",
+                        name: "FK_Elderlies_Institutions_InstitutionId",
                         column: x => x.InstitutionId,
-                        principalTable: "Instituitions",
+                        principalTable: "Institutions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -136,9 +136,9 @@ namespace Cuidado.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Shifts_Instituitions_InstitutionId",
+                        name: "FK_Shifts_Institutions_InstitutionId",
                         column: x => x.InstitutionId,
-                        principalTable: "Instituitions",
+                        principalTable: "Institutions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -225,13 +225,13 @@ namespace Cuidado.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Elderly_InstitutionId",
-                table: "Elderly",
+                name: "IX_Elderlies_InstitutionId",
+                table: "Elderlies",
                 column: "InstitutionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Instituitions_UserId",
-                table: "Instituitions",
+                name: "IX_Institutions_UserId",
+                table: "Institutions",
                 column: "UserId",
                 unique: true);
 
@@ -268,7 +268,7 @@ namespace Cuidado.Migrations
                 name: "Applications");
 
             migrationBuilder.DropTable(
-                name: "Elderly");
+                name: "Elderlies");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
@@ -280,7 +280,7 @@ namespace Cuidado.Migrations
                 name: "Caregivers");
 
             migrationBuilder.DropTable(
-                name: "Instituitions");
+                name: "Institutions");
 
             migrationBuilder.DropTable(
                 name: "Users");

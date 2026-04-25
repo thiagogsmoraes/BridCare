@@ -2,30 +2,30 @@
 
 namespace Cuidado.Models
 {
-    public class Reviews
+    public class Review
     {
         public int Id { get; set; }
 
         public int FromUserId { get; set; }
         [ForeignKey("FromUserId")]
         [InverseProperty("ReviewsGiven")]
-        public Users FromUser { get; set; }
+        public User FromUser { get; set; }
 
         public int ToUserId { get; set; }
         [ForeignKey("ToUserId")]
         [InverseProperty("ReviewsReceived")]
-        public Users ToUser { get; set; }
+        public User ToUser { get; set; }
 
         public int ShiftId { get; set; }
-        public Shifts Shift { get; set; }
+        public Shift Shift { get; set; }
 
         public int Rating { get; set; }
         public string Comment { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public Reviews() { }
+        public Review() { }
 
-        public Reviews(Users fromUser, Users toUser, int shiftId, Shifts shift, int rating, string comment, DateTime createdAt)
+        public Review(User fromUser, User toUser, int shiftId, Shift shift, int rating, string comment, DateTime createdAt)
         {
             FromUser = fromUser;
             ToUser = toUser;

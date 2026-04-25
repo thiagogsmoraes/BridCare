@@ -2,12 +2,12 @@
 
 namespace Cuidado.Models
 {
-    public class Shifts
+    public class Shift
     {
         public int Id { get; set; }
 
         public int InstitutionId { get; set; }
-        public Institutions Institution { get; set; }
+        public Institution Institution { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -19,15 +19,15 @@ namespace Cuidado.Models
         public ShiftStatus Status { get; set; }
 
         public int CaregiverId { get; set; }
-        public Caregivers? Caregiver { get; set; }
+        public Caregiver? Caregiver { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
-        public ICollection<Applications> Applications { get; set; } = new List<Applications>();
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
 
-        public Shifts() { }
+        public Shift() { }
 
-        public Shifts(Institutions institution, DateTime startTime, DateTime endTime, double price, int elderlyQuantity, bool nursingKnowledgeRequired, int caregiversPerShift, string description, ShiftStatus status, Caregivers caregiver, DateTime createdAt)
+        public Shift(Institution institution, DateTime startTime, DateTime endTime, double price, int elderlyQuantity, bool nursingKnowledgeRequired, int caregiversPerShift, string description, ShiftStatus status, Caregiver caregiver, DateTime createdAt)
         {
             Institution = institution;
             StartTime = startTime;
@@ -44,12 +44,12 @@ namespace Cuidado.Models
 
 
         //Adding and Removing from Application List
-        public void AddApplication(Applications application)
+        public void AddApplication(Application application)
         {
             Applications.Add(application);
         }
 
-        public void RemoveApplication(Applications application)
+        public void RemoveApplication(Application application)
         {
             Applications.Remove(application);
         }

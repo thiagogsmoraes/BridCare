@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cuidado.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260421220804_InitialCreate")]
+    [Migration("20260424223803_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Cuidado.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cuidado.Models.Applications", b =>
+            modelBuilder.Entity("Cuidado.Models.Application", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace Cuidado.Migrations
                     b.ToTable("Applications");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Caregivers", b =>
+            modelBuilder.Entity("Cuidado.Models.Caregiver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,10 +146,10 @@ namespace Cuidado.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Elderly");
+                    b.ToTable("Elderlies");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Institutions", b =>
+            modelBuilder.Entity("Cuidado.Models.Institution", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -199,10 +199,10 @@ namespace Cuidado.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Instituitions");
+                    b.ToTable("Institutions");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Reviews", b =>
+            modelBuilder.Entity("Cuidado.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace Cuidado.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Shifts", b =>
+            modelBuilder.Entity("Cuidado.Models.Shift", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -290,7 +290,7 @@ namespace Cuidado.Migrations
                     b.ToTable("Shifts");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Users", b =>
+            modelBuilder.Entity("Cuidado.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,15 +313,15 @@ namespace Cuidado.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Applications", b =>
+            modelBuilder.Entity("Cuidado.Models.Application", b =>
                 {
-                    b.HasOne("Cuidado.Models.Caregivers", "Caregiver")
+                    b.HasOne("Cuidado.Models.Caregiver", "Caregiver")
                         .WithMany("Applications")
                         .HasForeignKey("CaregiverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Cuidado.Models.Shifts", "Shift")
+                    b.HasOne("Cuidado.Models.Shift", "Shift")
                         .WithMany("Applications")
                         .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -332,11 +332,11 @@ namespace Cuidado.Migrations
                     b.Navigation("Shift");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Caregivers", b =>
+            modelBuilder.Entity("Cuidado.Models.Caregiver", b =>
                 {
-                    b.HasOne("Cuidado.Models.Users", "User")
+                    b.HasOne("Cuidado.Models.User", "User")
                         .WithOne()
-                        .HasForeignKey("Cuidado.Models.Caregivers", "UserId")
+                        .HasForeignKey("Cuidado.Models.Caregiver", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -345,7 +345,7 @@ namespace Cuidado.Migrations
 
             modelBuilder.Entity("Cuidado.Models.Elderly", b =>
                 {
-                    b.HasOne("Cuidado.Models.Institutions", "Institution")
+                    b.HasOne("Cuidado.Models.Institution", "Institution")
                         .WithMany("Elderlies")
                         .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -354,32 +354,32 @@ namespace Cuidado.Migrations
                     b.Navigation("Institution");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Institutions", b =>
+            modelBuilder.Entity("Cuidado.Models.Institution", b =>
                 {
-                    b.HasOne("Cuidado.Models.Users", "User")
+                    b.HasOne("Cuidado.Models.User", "User")
                         .WithOne()
-                        .HasForeignKey("Cuidado.Models.Institutions", "UserId")
+                        .HasForeignKey("Cuidado.Models.Institution", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Reviews", b =>
+            modelBuilder.Entity("Cuidado.Models.Review", b =>
                 {
-                    b.HasOne("Cuidado.Models.Users", "FromUser")
+                    b.HasOne("Cuidado.Models.User", "FromUser")
                         .WithMany("ReviewsGiven")
                         .HasForeignKey("FromUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Cuidado.Models.Shifts", "Shift")
+                    b.HasOne("Cuidado.Models.Shift", "Shift")
                         .WithMany()
                         .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Cuidado.Models.Users", "ToUser")
+                    b.HasOne("Cuidado.Models.User", "ToUser")
                         .WithMany("ReviewsReceived")
                         .HasForeignKey("ToUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -392,14 +392,14 @@ namespace Cuidado.Migrations
                     b.Navigation("ToUser");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Shifts", b =>
+            modelBuilder.Entity("Cuidado.Models.Shift", b =>
                 {
-                    b.HasOne("Cuidado.Models.Caregivers", "Caregiver")
+                    b.HasOne("Cuidado.Models.Caregiver", "Caregiver")
                         .WithMany()
                         .HasForeignKey("CaregiverId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Cuidado.Models.Institutions", "Institution")
+                    b.HasOne("Cuidado.Models.Institution", "Institution")
                         .WithMany("Shifts")
                         .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -410,24 +410,24 @@ namespace Cuidado.Migrations
                     b.Navigation("Institution");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Caregivers", b =>
+            modelBuilder.Entity("Cuidado.Models.Caregiver", b =>
                 {
                     b.Navigation("Applications");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Institutions", b =>
+            modelBuilder.Entity("Cuidado.Models.Institution", b =>
                 {
                     b.Navigation("Elderlies");
 
                     b.Navigation("Shifts");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Shifts", b =>
+            modelBuilder.Entity("Cuidado.Models.Shift", b =>
                 {
                     b.Navigation("Applications");
                 });
 
-            modelBuilder.Entity("Cuidado.Models.Users", b =>
+            modelBuilder.Entity("Cuidado.Models.User", b =>
                 {
                     b.Navigation("ReviewsGiven");
 

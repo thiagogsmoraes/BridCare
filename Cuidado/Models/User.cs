@@ -3,7 +3,7 @@ using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
 {
-    public class Users
+    public class User
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -11,14 +11,14 @@ namespace Cuidado.Models
         public DateTime CreatedAt { get; set; }
 
         [InverseProperty("FromUser")]
-        public ICollection<Reviews> ReviewsGiven { get; set; } = new List<Reviews>();
+        public ICollection<Review> ReviewsGiven { get; set; } = new List<Review>();
 
         [InverseProperty("ToUser")]
-        public ICollection<Reviews> ReviewsReceived { get; set; } = new List<Reviews>();
+        public ICollection<Review> ReviewsReceived { get; set; } = new List<Review>();
 
-        public Users() { }
+        public User() { }
 
-        public Users(string email, Role role, DateTime createdAt)
+        public User(string email, Role role, DateTime createdAt)
         {
             Email = email;
             Role = role;
@@ -27,23 +27,23 @@ namespace Cuidado.Models
 
 
         // Adding and Removing from Reviews Given List
-        public void AddReviewGiven(Reviews review)
+        public void AddReviewGiven(Review review)
         {
             ReviewsGiven.Add(review);
         }
 
-        public void RemoveReviewGiven(Reviews review)
+        public void RemoveReviewGiven(Review review)
         {
             ReviewsGiven.Remove(review);
         }
 
         // Adding and Removing from Reviews Received List
-        public void AddReviewReceived(Reviews review)
+        public void AddReviewReceived(Review review)
         {
             ReviewsReceived.Add(review);
         }
 
-        public void RemoveReviewReceived(Reviews review)
+        public void RemoveReviewReceived(Review review)
         {
             ReviewsReceived.Remove(review);
         }

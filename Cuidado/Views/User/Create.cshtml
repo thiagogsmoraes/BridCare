@@ -1,14 +1,14 @@
-﻿@model Cuidado.Models.ViewModels.RegisterViewModel
+﻿@model Cuidado.Models.ViewModels.UserViewModel
 @using Cuidado.Models.Enums
 
 @{
-    ViewData["Title"] = "Cadastro";
+    ViewData["Title"] = "Criar Conta";
 }
 
 <div class="container py-5" style="max-width: 700px;">
 
     <div class="mb-4">
-        <h2 class="fw-bold">Criar conta</h2>
+        <h2 class="fw-bold">@ViewData["Title"]</h2>
         <p class="text-muted">Preencha os dados abaixo para se cadastrar na plataforma.</p>
     </div>
 
@@ -19,7 +19,7 @@
         @* Mostra erros gerais de validação *@
         <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
 
-        {{!-- SEÇÃO 1: Dados de acesso --}}
+        @* {{!-- SEÇÃO 1: Dados de acesso --}} *@
         <div class="card mb-4">
             <div class="card-header fw-semibold">Dados de acesso</div>
             <div class="card-body">
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        {{!-- SEÇÃO 2: Dados do Cuidador (aparece só se Role = Caregiver) --}}
+        @* {{!-- SEÇÃO 2: Dados do Cuidador (aparece só se Role = Caregiver) --}} *@
         <div class="card mb-4 d-none" id="caregiverSection">
             <div class="card-header fw-semibold">Dados do Cuidador</div>
             <div class="card-body">
@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        {{!-- SEÇÃO 3: Dados da Instituição (aparece só se Role = Institution) --}}
+        @* {{!-- SEÇÃO 3: Dados da Instituição (aparece só se Role = Institution) --}} *@
         <div class="card mb-4 d-none" id="institutionSection">
             <div class="card-header fw-semibold">Dados da Instituição</div>
             <div class="card-body">
@@ -175,7 +175,7 @@
             </div>
         </div>
 
-        {{!-- BOTÕES --}}
+        @* {{!-- BOTÕES --}} *@
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary px-4">Cadastrar</button>
             <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>

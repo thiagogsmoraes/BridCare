@@ -1,10 +1,13 @@
-﻿using Cuidado.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Cuidado.Models.Enums;
 
 namespace Cuidado.Models.ViewModels
 {
-    public class RegisterViewModel
+    public class UserViewModel
     {
+        [Required] [EmailAddress]
         public string Email { get; set; }
+        [Required]
         public Role Role { get; set; }
 
 

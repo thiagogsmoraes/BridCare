@@ -3,12 +3,12 @@ using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
 {
-    public class Institutions
+    public class Institution
     {
         public int Id { get; set; }
 
         public int UserId { get; set; }
-        public Users User { get; set; }
+        public User User { get; set; }
 
         public string Name { get; set; }
         public string Cnpj { get; set; }
@@ -21,11 +21,11 @@ namespace Cuidado.Models
         public DateTime CreatedAt { get; set; }
 
         public ICollection<Elderly> Elderlies { get; set; } = new List<Elderly>();
-        public ICollection<Shifts> Shifts { get; set; } = new List<Shifts>();
+        public ICollection<Shift> Shifts { get; set; } = new List<Shift>();
 
-        public Institutions() { }
+        public Institution() { }
 
-        public Institutions(Users user, string name, string cnpj, string phone, string whatsapp, string email, string adress, Category type, string description, DateTime createdAt)
+        public Institution(User user, string name, string cnpj, string phone, string whatsapp, string email, string adress, Category type, string description, DateTime createdAt)
         {
             User = user;
             Name = name;
@@ -58,12 +58,12 @@ namespace Cuidado.Models
 
 
         //Adding and Removing from Shifts List
-        public void AddShift(Shifts shift)
+        public void AddShift(Shift shift)
         {
             Shifts.Add(shift);
         }
 
-        public void RemoveShift(Shifts shift)
+        public void RemoveShift(Shift shift)
         {
             Shifts.Remove(shift);
         }
