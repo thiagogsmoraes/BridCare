@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
@@ -10,13 +12,17 @@ namespace Cuidado.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [DisplayName("Nome")]
         public string FullName { get; set; }
         public string CPF { get; set; }
+        [DisplayName("Data de Nascimento")] [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
+        [DisplayName("Gênero")]
         public Gender Gender { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
+        [DisplayName("Descrição")]
         public string? Description { get; set; }
         public EducationLevel EducationLevel { get; set; }
         public double ExpectedSalary { get; set; }
@@ -40,18 +46,6 @@ namespace Cuidado.Models
             EducationLevel = educationLevel;
             ExpectedSalary = expectedSalary;
             CreatedAt = createdAt;
-        }
-
-
-        //Adding and Removing from Application List
-        public void AddApplication(Application application)
-        {
-            Applications.Add(application);
-        }
-
-        public void RemoveApplication(Application application)
-        {
-            Applications.Remove(application);
         }
     }
 }

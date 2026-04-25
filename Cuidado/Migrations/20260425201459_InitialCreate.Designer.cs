@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cuidado.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260424223803_InitialCreate")]
+    [Migration("20260425201459_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -137,6 +137,10 @@ namespace Cuidado.Migrations
 
                     b.Property<int>("InstitutionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .IsRequired()

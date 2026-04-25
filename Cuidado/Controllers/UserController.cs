@@ -47,11 +47,13 @@ namespace Cuidado.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
+            var routeValues = new { id = obj.Id };
+
             if (obj.Role == 0)
             {
-                return RedirectToAction("Index", "Caregiver");
+                return RedirectToAction("Index", "Caregiver", routeValues);
             }
-            return RedirectToAction("Index", "Institution");
+            return RedirectToAction("Index", "Institution", routeValues);
         }
     }
 }

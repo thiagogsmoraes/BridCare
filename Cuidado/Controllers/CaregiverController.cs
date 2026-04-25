@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cuidado.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cuidado.Controllers
 {
     public class CaregiverController : Controller
     {
-        public IActionResult Index()
+        private readonly CaregiverService _caregiverService;
+
+        public CaregiverController(CaregiverService caregiverService)
         {
-            return View();
+            _caregiverService = caregiverService;
+        }
+
+        public async Task<IActionResult> Index(int id)
+        {
+            var obj = await _caregiverService.FindByIdAsync(id);
+            return View(obj);
         }
     }
 }

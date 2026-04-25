@@ -39,7 +39,7 @@ namespace Cuidado.Services
                     ExpectedSalary = vm.ExpectedSalary!.Value,
                     CreatedAt = DateTime.Now,
                 };
-                _context.Add(caregiver);
+                _context.Caregivers.Add(caregiver);
             }
 
             if (vm.Role == Role.Instituition)
@@ -57,7 +57,7 @@ namespace Cuidado.Services
                     Description = vm.InstitutionDescription!,
                     CreatedAt = DateTime.Now,
                 };
-                _context.Add(institution);
+                _context.Institutions.Add(institution);
             }
 
             await _context.SaveChangesAsync();

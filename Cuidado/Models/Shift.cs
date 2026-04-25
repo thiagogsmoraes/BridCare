@@ -41,17 +41,5 @@ namespace Cuidado.Models
             Caregiver = caregiver;
             CreatedAt = createdAt;
         }
-
-
-        //Adding and Removing from Application List
-        public void AddApplication(Application application)
-        {
-            Applications.Add(application);
-        }
-
-        public void RemoveApplication(Application application)
-        {
-            Applications.Remove(application);
-        }
     }
 }

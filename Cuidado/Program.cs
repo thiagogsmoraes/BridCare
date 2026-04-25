@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CaregiverService>();
+builder.Services.AddScoped<InstitutionService>();
+builder.Services.AddScoped<ElderlyService>();
 
 var app = builder.Build();
 

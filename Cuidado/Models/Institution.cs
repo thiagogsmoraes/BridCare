@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
@@ -10,13 +11,16 @@ namespace Cuidado.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [DisplayName("Nome")]
         public string Name { get; set; }
         public string Cnpj { get; set; }
         public string Phone { get; set; }
         public string Whatsapp { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
+        [DisplayName("Categoria")]
         public Category Type { get; set; }
+        [DisplayName("Descrição")]
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
 
@@ -37,35 +41,6 @@ namespace Cuidado.Models
             Type = type;
             Description = description;
             CreatedAt = createdAt;
-        }
-
-
-        // Addind and Removing from Elderlies List
-        public void AddElderly(Elderly elderly)
-        {
-            Elderlies.Add(elderly);
-        }
-
-        public void RemoveElderly(Elderly elderly)
-        {
-            Elderlies.Remove(elderly);
-        }
-
-        public int CountOfElderlies()
-        {
-            return Elderlies.Count();
-        }
-
-
-        //Adding and Removing from Shifts List
-        public void AddShift(Shift shift)
-        {
-            Shifts.Add(shift);
-        }
-
-        public void RemoveShift(Shift shift)
-        {
-            Shifts.Remove(shift);
         }
     }
 }

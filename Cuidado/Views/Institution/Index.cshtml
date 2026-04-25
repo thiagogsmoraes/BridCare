@@ -1,7 +1,41 @@
-﻿
+﻿@model Cuidado.Models.Institution
 
 @{
-	ViewData["Titulo"] = "Institution";
+	ViewData["Titulo"] = "Instituição";
 }
 
 <h1>@ViewData["Titulo"]</h1>
+
+<div>
+	<h4>Dados</h4>
+	<hr />
+	<dl class="row">
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Type)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Type)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Email)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Email)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Description)
+		</dd>
+	</dl>
+</div>
+<div>
+	<a asp-controller="Elderly" asp-action="Index" asp-route-id="@Model.Id">Ver Idosos</a>
+</div>

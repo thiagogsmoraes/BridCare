@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cuidado.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cuidado.Controllers
 {
     public class InstitutionController : Controller
     {
-        public IActionResult Index()
+        private readonly InstitutionService _service;
+
+        public InstitutionController(InstitutionService service)
         {
-            return View();
+            _service = service;
+        }
+
+        public async Task<IActionResult> Index(int id)
+        {
+            var obj = await _service.FindByUserIdAsync(id);
+            return View(obj);
         }
     }
 }

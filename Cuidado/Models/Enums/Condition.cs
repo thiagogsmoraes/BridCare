@@ -3,6 +3,6 @@
     public enum Condition : int
     {
         Bedridden = 0,
-        Independt = 1,
+        Independent = 1,
     }
 }

@@ -24,28 +24,5 @@ namespace Cuidado.Models
             Role = role;
             CreatedAt = createdAt;
         }
-
-
-        // Adding and Removing from Reviews Given List
-        public void AddReviewGiven(Review review)
-        {
-            ReviewsGiven.Add(review);
-        }
-
-        public void RemoveReviewGiven(Review review)
-        {
-            ReviewsGiven.Remove(review);
-        }
-
-        // Adding and Removing from Reviews Received List
-        public void AddReviewReceived(Review review)
-        {
-            ReviewsReceived.Add(review);
-        }
-
-        public void RemoveReviewReceived(Review review)
-        {
-            ReviewsReceived.Remove(review);
-        }
     }
 }
