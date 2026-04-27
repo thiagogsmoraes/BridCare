@@ -8,6 +8,10 @@ namespace Cuidado.Models.ViewModels
         [Required] [EmailAddress]
         public string Email { get; set; }
         [Required]
+        public string Password { get; set; }
+        [Compare("Password", ErrorMessage = "As senhas não coincidem")]
+        public string ConfirmPassword { get; set; }
+        [Required]
         public Role Role { get; set; }
 
 

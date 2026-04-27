@@ -13,7 +13,7 @@ namespace Cuidado.Services
             _context = context;
         }
 
-        public async Task<Caregiver> FindByIdAsync(int id)
+        public async Task<Caregiver> FindByIdAsync(string id)
         {
             return await _context.Caregivers.FirstOrDefaultAsync(x => x.UserId == id);
         }

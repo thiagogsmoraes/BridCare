@@ -21,19 +21,6 @@ namespace Cuidado.Models
         public Condition Condition { get; set; }
         [DisplayName("Notas")]
         public string Notes { get; set; }
-        public DateTime CreatedAt { get; set; }
-
-        public Elderly() { }
-
-        public Elderly(Institution institution, string name, DateTime birthDate, Gender gender, Condition condition, string notes, DateTime createdAt)
-        {
-            Institution = institution;
-            Name = name;
-            BirthDate = birthDate;
-            Gender = gender;
-            Condition = condition;
-            Notes = notes;
-            CreatedAt = createdAt;
-        }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

@@ -13,24 +13,14 @@ namespace Cuidado.Services
             _context = context;
         }
 
-        public async Task<List<Elderly>> FindAllAsync(int id)
+        public async Task<List<Elderly>> FindAllAsync(string id)
         {
-            return await _context.Elderlies.Where(x => x.InstitutionId == id).ToListAsync();
+            var institutionId = await _context.Institutions.FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.InstitutionId == institutionId.Id).ToListAsync();
         }
 
-        public async Task AddElderlyAsync(Elderly m)
+        public async Task AddElderlyAsync(Elderly elderly)
         {
-            var elderly = new Elderly
-            {
-                InstitutionId = m.InstitutionId,
-                Name = m.Name,
-                BirthDate = m.BirthDate,
-                Gender = m.Gender,
-                Condition = m.Condition,
-                Notes = m.Notes,
-                CreatedAt = DateTime.Now
-            };
-
             _context.Elderlies.Add(elderly);
             await _context.SaveChangesAsync();
         }

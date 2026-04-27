@@ -13,14 +13,9 @@ namespace Cuidado.Services
             _context = context;
         }
 
-        public async Task<Institution> FindByUserIdAsync(int id)
+        public async Task<Institution> FindByUserIdAsync(string id)
         {
             return await _context.Institutions.FirstOrDefaultAsync(x => x.UserId == id);
-        }
-
-        public async Task<Institution> FindByInstitutionIdAsync(int id)
-        {
-            return await _context.Institutions.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

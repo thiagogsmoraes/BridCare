@@ -1,4 +1,4 @@
-﻿@model Cuidado.Models.User
+﻿@model Cuidado.Models.ViewModels.LoginViewModel
 
 @{
 	ViewData["Titulo"] = "Usuário";
@@ -15,9 +15,13 @@
 				<label asp-for="Email" class="form-label">Email</label>
 				<input asp-for="Email" class="form-control"/>
 			</div>
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label">Senha</label>
+				<input asp-for="Password" class="form-control" type="password" />
+			</div>
 			<div class="d-flex gap-3 justify-content-center">
 				<button type="submit" class="btn btn-primary">Entrar</button>
-				<a asp-action="Create">Cadastrar</a>
+				<a asp-action="Register">Cadastrar</a>
 			</div>
 		</form>
 	</div>

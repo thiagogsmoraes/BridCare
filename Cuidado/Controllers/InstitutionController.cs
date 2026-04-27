@@ -1,21 +1,28 @@
-﻿using Cuidado.Services;
+﻿using Cuidado.Models;
+using Cuidado.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cuidado.Controllers
 {
+    [Authorize(Policy = "OnlyInstitution")]
     public class InstitutionController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly InstitutionService _service;
 
-        public InstitutionController(InstitutionService service)
+        public InstitutionController(UserManager<User> userManager, InstitutionService service)
         {
+            _userManager = userManager;
             _service = service;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var obj = await _service.FindByUserIdAsync(id);
-            return View(obj);
+            var userId = _userManager.GetUserId(User);
+            var institution = await _service.FindByUserIdAsync(userId);
+            return View(institution);
         }
     }
 }

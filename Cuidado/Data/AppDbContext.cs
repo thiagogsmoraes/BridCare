@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Cuidado.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cuidado.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -13,7 +14,6 @@ namespace Cuidado.Data
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Shift> Shifts { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

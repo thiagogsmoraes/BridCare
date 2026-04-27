@@ -1,5 +1,7 @@
 using Cuidado.Data;
+using Cuidado.Models;
 using Cuidado.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 // DataBase
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CaregiverService>();
 builder.Services.AddScoped<InstitutionService>();
 builder.Services.AddScoped<ElderlyService>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyCaregiver", policy => policy.RequireClaim("Role", "Caregiver"));
+    options.AddPolicy("OnlyInstitution", policy => policy.RequireClaim("Role", "Institution"));
+});
 
 var app = builder.Build();
 
@@ -29,6 +38,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

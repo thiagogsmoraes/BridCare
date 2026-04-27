@@ -1,7 +1,9 @@
-﻿using Cuidado.Data;
+﻿using System.Security.Claims;
+using Cuidado.Data;
 using Cuidado.Models;
 using Cuidado.Models.Enums;
 using Cuidado.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cuidado.Services
@@ -9,18 +11,49 @@ namespace Cuidado.Services
     public class UserService
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserService(AppDbContext context) 
+        public UserService(AppDbContext context, UserManager<User> userManager, SignInManager<User> signInManager) 
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-        
+
+        // Entering in Account
+        public async Task LoginAsync(LoginViewModel model)
+        {
+            // Checagem de email e senha no banco é feita de forma automática pelo Identity
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: false);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception("Email ou senha inválidos");
+            }
+        }
+
+        // Finding Email
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+
         // Creating New User and New Caregiver or Institution
         public async Task RegisterAsync(UserViewModel vm)
         {
-            var user = new User { Email = vm.Email, Role = vm.Role, CreatedAt = DateTime.Now};
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            // Criando usuário conforme Identity e inputando no banco automaticamente - ele cria um hash para o password
+            var user = new User { Email = vm.Email, UserName = vm.Email, Role = vm.Role};
+            var result = await _userManager.CreateAsync(user, vm.Password);
+
+            if (!result.Succeeded) 
+            {
+                throw new Exception(result.Errors.First().Description);
+            }
+
+            // Só é necessário criar o Claim de Role pq os outros o Identity (Id, Email, Username) já cria internamente
+            await _userManager.AddClaimAsync(user, new Claim("Role", vm.Role.ToString()));
 
             if (vm.Role == Role.Caregiver)
             {
@@ -42,7 +75,7 @@ namespace Cuidado.Services
                 _context.Caregivers.Add(caregiver);
             }
 
-            if (vm.Role == Role.Instituition)
+            if (vm.Role == Role.Institution)
             {
                 var institution = new Institution
                 {
@@ -61,12 +94,6 @@ namespace Cuidado.Services
             }
 
             await _context.SaveChangesAsync();
-        }
-
-        // Finding Email
-        public async Task<User> FindByEmailAsync(string email)
-        {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
     }
 }

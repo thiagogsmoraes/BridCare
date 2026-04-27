@@ -15,8 +15,8 @@
     <form asp-action="Create" method="post">
         @Html.AntiForgeryToken()
 
-        @* Campo oculto — preenchido automaticamente pelo ViewBag *@
-        <input type="hidden" asp-for="InstitutionId" value="@ViewBag.InstitutionId" />
+        @* Campo oculto — preenchido automaticamente pelo ViewBag 
+        <input type="hidden" asp-for="InstitutionId" value="@ViewBag.InstitutionId" />*@
 
         <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
 
@@ -67,8 +67,7 @@
 
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary px-4">Cadastrar</button>
-            <a asp-action="Index" asp-route-id="@ViewBag.InstitutionId"
-               class="btn btn-outline-secondary">Cancelar</a>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
         </div>
 
     </form>

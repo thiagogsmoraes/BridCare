@@ -1,36 +1,40 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Cuidado.Models;
 using Cuidado.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
 namespace Cuidado.Controllers
 {
+    [Authorize(Policy = "OnlyInstitution")]
     public class ElderlyController : Controller
     {
-        private readonly ElderlyService _service;
-        private readonly InstitutionService _institution;
+        private readonly UserManager<User> _userManager;
+        private readonly ElderlyService _elderlyService;
+        private readonly InstitutionService _institutionService;
 
-        public ElderlyController(ElderlyService service, InstitutionService institution)
+        public ElderlyController(UserManager<User> userManager, ElderlyService service, InstitutionService institution)
         {
-            _service = service;
-            _institution = institution;
+            _userManager = userManager;
+            _elderlyService = service;
+            _institutionService = institution;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var institution = await _institution.FindByInstitutionIdAsync(id);
+            var userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
 
-            ViewBag.InstitutionId = id;
-            ViewBag.UserId = institution.UserId;
+            ViewBag.InstitutionName = institution.Name;
 
-            var elderlies = await _service.FindAllAsync(id);
+            var elderlies = await _elderlyService.FindAllAsync(userId);
             return View(elderlies);
         }
 
-        public IActionResult Create(int id)
+        public IActionResult Create()
         {
-            ViewBag.InstitutionId = id;
             return View();
         }
 
@@ -38,16 +42,17 @@ namespace Cuidado.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Elderly elderly)
         {
-            Console.WriteLine($"InstitutionId recebido: {elderly.InstitutionId}");
             if (!ModelState.IsValid)
             {
                 return View(elderly);
             }
 
-            var routeValues = new { id = elderly.InstitutionId};
+            var userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
+            elderly.InstitutionId = institution.Id;
 
-            await _service.AddElderlyAsync(elderly);
-            return RedirectToAction(nameof(Index), routeValues);
+            await _elderlyService.AddElderlyAsync(elderly);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

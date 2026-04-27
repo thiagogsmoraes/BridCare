@@ -6,12 +6,12 @@ namespace Cuidado.Models
     {
         public int Id { get; set; }
 
-        public int FromUserId { get; set; }
+        public string FromUserId { get; set; }
         [ForeignKey("FromUserId")]
         [InverseProperty("ReviewsGiven")]
         public User FromUser { get; set; }
 
-        public int ToUserId { get; set; }
+        public string ToUserId { get; set; }
         [ForeignKey("ToUserId")]
         [InverseProperty("ReviewsReceived")]
         public User ToUser { get; set; }
