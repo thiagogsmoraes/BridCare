@@ -15,7 +15,12 @@ namespace Cuidado.Services
 
         public async Task<List<Elderly>> FindAllAsync(string id)
         {
-            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.Institution.UserId == id).ToListAsync();
+            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.Institution.UserId == id).OrderBy(x => x.Name).ToListAsync();
+        }
+
+        public async Task<List<Elderly>> FindByNameAsync(string id, string elderlyName)
+        {
+            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.Name.Contains(elderlyName) && x.Institution.UserId == id).OrderBy(x => x.Name).ToListAsync();
         }
 
         public async Task<Elderly> FindByUserIdAsync(string id, int elderlyId)

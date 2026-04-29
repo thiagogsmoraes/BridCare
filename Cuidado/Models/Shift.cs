@@ -1,4 +1,6 @@
-﻿using Cuidado.Models.Enums;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Cuidado.Models.Enums;
 
 namespace Cuidado.Models
 {
@@ -7,39 +9,30 @@ namespace Cuidado.Models
         public int Id { get; set; }
 
         public int InstitutionId { get; set; }
-        public Institution Institution { get; set; }
+        public Institution? Institution { get; set; }
 
+        [Required][DisplayName("Início")][DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime StartTime { get; set; }
+        [Required][DisplayName("Término")][DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime EndTime { get; set; }
+        [Required][DisplayName("Preço")][DisplayFormat(DataFormatString = "{0:F2}")]
         public double Price { get; set; }
         public int ElderlyQuantity { get; set; }
+        [Required][DisplayName("Experiência")]
         public bool NursingKnowledgeRequired { get; set; }
+        [Required][DisplayName("Cuidadores por Turno")]
         public int CaregiversPerShift { get; set; }
+        [DisplayName("Descrição")]
         public string? Description { get; set; }
-        public ShiftStatus Status { get; set; }
+        public ShiftStatus Status { get; set; } = ShiftStatus.Open;
 
-        public int CaregiverId { get; set; }
+        [DisplayName("Cuidador")]
+        public int? CaregiverId { get; set; }
         public Caregiver? Caregiver { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        [DisplayName("Criado em")][DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public ICollection<Application> Applications { get; set; } = new List<Application>();
-
-        public Shift() { }
-
-        public Shift(Institution institution, DateTime startTime, DateTime endTime, double price, int elderlyQuantity, bool nursingKnowledgeRequired, int caregiversPerShift, string description, ShiftStatus status, Caregiver caregiver, DateTime createdAt)
-        {
-            Institution = institution;
-            StartTime = startTime;
-            EndTime = endTime;
-            Price = price;
-            ElderlyQuantity = elderlyQuantity;
-            NursingKnowledgeRequired = nursingKnowledgeRequired;
-            CaregiversPerShift = caregiversPerShift;
-            Description = description;
-            Status = status;
-            Caregiver = caregiver;
-            CreatedAt = createdAt;
-        }
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CaregiverService>();
 builder.Services.AddScoped<InstitutionService>();
 builder.Services.AddScoped<ElderlyService>();
+builder.Services.AddScoped<ShiftService>();
 
 builder.Services.AddAuthorization(options =>
 {

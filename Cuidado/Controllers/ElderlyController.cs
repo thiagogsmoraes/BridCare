@@ -22,14 +22,26 @@ namespace Cuidado.Controllers
             _institutionService = institution;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
             var userId = _userManager.GetUserId(User);
             var institution = await _institutionService.FindByUserIdAsync(userId);
 
-            ViewBag.InstitutionName = institution.Name;
+            ViewData["Institution"] = institution.Name;
+            ViewData["Elderly"] = name;
 
-            var elderlies = await _elderlyService.FindAllAsync(userId);
+            List<Elderly> elderlies;      
+
+            if (string.IsNullOrEmpty(name))
+            {
+                elderlies = await _elderlyService.FindAllAsync(userId);
+            }
+            else
+            {
+                elderlies = await _elderlyService.FindByNameAsync(userId, name);
+            }
+
+            ViewData["Count"] = await _institutionService.CountAllElderliesAsync(userId);
             return View(elderlies);
         }
 

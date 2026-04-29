@@ -17,5 +17,10 @@ namespace Cuidado.Services
         {
             return await _context.Institutions.FirstOrDefaultAsync(x => x.UserId == id);
         }
+
+        public async Task<int> CountAllElderliesAsync(string id)
+        {
+            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.Institution.UserId == id).CountAsync();
+        }
     }
 }

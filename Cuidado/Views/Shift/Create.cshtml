@@ -8,72 +8,46 @@
 
 <h4>Shift</h4>
 <hr />
-<div class="row">
+<div class="row mb-2">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="InstitutionId" class="control-label"></label>
-                <select asp-for="InstitutionId" class ="form-control" asp-items="ViewBag.InstitutionId"></select>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="StartTime" class="control-label"></label>
                 <input asp-for="StartTime" class="form-control" />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="EndTime" class="control-label"></label>
                 <input asp-for="EndTime" class="form-control" />
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ElderlyQuantity" class="control-label"></label>
-                <input asp-for="ElderlyQuantity" class="form-control" />
-                <span asp-validation-for="ElderlyQuantity" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check mb-2">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="NursingKnowledgeRequired" /> @Html.DisplayNameFor(model => model.NursingKnowledgeRequired)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="CaregiversPerShift" class="control-label"></label>
                 <input asp-for="CaregiversPerShift" class="form-control" />
                 <span asp-validation-for="CaregiversPerShift" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CaregiverId" class="control-label"></label>
-                <select asp-for="CaregiverId" class ="form-control" asp-items="ViewBag.CaregiverId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
