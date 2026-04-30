@@ -17,6 +17,7 @@ namespace Cuidado.Models
         public DateTime EndTime { get; set; }
         [Required][DisplayName("Preço")][DisplayFormat(DataFormatString = "{0:F2}")]
         public double Price { get; set; }
+        [DisplayName("Quantidade de Idosos")]
         public int ElderlyQuantity { get; set; }
         [Required][DisplayName("Experiência")]
         public bool NursingKnowledgeRequired { get; set; }
@@ -26,8 +27,8 @@ namespace Cuidado.Models
         public string? Description { get; set; }
         public ShiftStatus Status { get; set; } = ShiftStatus.Open;
 
-        [DisplayName("Cuidador")]
         public int? CaregiverId { get; set; }
+        [DisplayName("Cuidador")]
         public Caregiver? Caregiver { get; set; }
 
         [DisplayName("Criado em")][DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]

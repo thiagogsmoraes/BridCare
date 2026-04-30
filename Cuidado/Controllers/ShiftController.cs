@@ -10,6 +10,8 @@ using Cuidado.Models;
 using Cuidado.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using AspNetCoreGeneratedDocument;
 
 namespace Cuidado.Controllers
 {
@@ -36,37 +38,32 @@ namespace Cuidado.Controllers
         }
 
         // GET: Shift/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
+            string userId = _userManager.GetUserId(User);
+
             if (id == null)
             {
                 return NotFound();
             };
 
-            //var shift = await _context.Shifts
-            //.Include(s => s.Caregiver)
-            //.Include(s => s.Institution)
-            //.FirstOrDefaultAsync(m => m.Id == id);
-            //if (shift == null)
-            //{
-            //return NotFound();
-            //}
+            var shift = await _shiftService.FindByUserIdAsync(userId, id);
+            if (shift == null)
+            {
+                return NotFound();
+            }
 
-            //return View(shift);
-            return View();
+            return View(shift);
         }
 
         // GET: Shift/Create
         public IActionResult Create()
         {
-            // ViewData["CaregiverId"] = new SelectList(_context.Caregivers, "Id", "Id");
-            //ViewData["InstitutionId"] = new SelectList(_context.Institutions, "Id", "Id");
             return View();
         }
 
         // POST: Shift/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Shift shift)
@@ -87,22 +84,22 @@ namespace Cuidado.Controllers
         }
 
         // GET: Shift/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
+            string userId = _userManager.GetUserId(User);
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            // var shift = await _context.Shifts.FindAsync(id);
-            //if (shift == null)
-            // {
-            //     return NotFound();
-            // }
-            // ViewData["CaregiverId"] = new SelectList(_context.Caregivers, "Id", "Id", shift.CaregiverId);
-            // ViewData["InstitutionId"] = new SelectList(_context.Institutions, "Id", "Id", shift.InstitutionId);
-            // return View(shift);
-            return View();
+            var shift = await _shiftService.FindByUserIdAsync(userId, id);
+            if (shift == null)
+            {
+                return NotFound();
+            }
+
+            return View(shift);
         }
 
         // POST: Shift/Edit/5
@@ -110,8 +107,11 @@ namespace Cuidado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,InstitutionId,StartTime,EndTime,Price,ElderlyQuantity,NursingKnowledgeRequired,CaregiversPerShift,Description,Status,CaregiverId,CreatedAt")] Shift shift)
+        public async Task<IActionResult> Edit(int id, Shift shift)
         {
+            string userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
+
             if (id != shift.Id)
             {
                 return NotFound();
@@ -121,8 +121,9 @@ namespace Cuidado.Controllers
             {
                 try
                 {
-                    //_context.Update(shift);
-                    //await _context.SaveChangesAsync();
+                    shift.InstitutionId = institution.Id;
+                    shift.ElderlyQuantity = await _institutionService.CountAllElderliesAsync(userId);
+                    await _shiftService.UpdateShiftAsync(shift);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,32 +136,30 @@ namespace Cuidado.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = shift.Id });
             }
-            // ViewData["CaregiverId"] = new SelectList(_context.Caregivers, "Id", "Id", shift.CaregiverId);
-            //ViewData["InstitutionId"] = new SelectList(_context.Institutions, "Id", "Id", shift.InstitutionId);
+
             return View(shift);
         }
 
         // GET: Shift/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
+            string userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            // var shift = await _context.Shifts
-            //  .Include(s => s.Caregiver)
-            //  .Include(s => s.Institution)
-            //  .FirstOrDefaultAsync(m => m.Id == id);
-            // if (shift == null)
-            // {
-            //    return NotFound();
-            //}
+            var shift = await _shiftService.FindByUserIdAsync(userId, id);
+            if (shift == null)
+            {
+                return NotFound();
+            }
 
-            //return View(shift);
-            return View();
+            return View(shift);
         }
 
         // POST: Shift/Delete/5
@@ -168,15 +167,17 @@ namespace Cuidado.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var shift = await _context.Shifts.FindAsync(id);
-            //if (shift != null)
-            //{
-            //_context.Shifts.Remove(shift);
-            //}
+            string userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
 
-            // await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            await _shiftService.DeleteShiftAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ShiftExists(int id)

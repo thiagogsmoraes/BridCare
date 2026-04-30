@@ -14,12 +14,14 @@ namespace Cuidado.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ElderlyService _elderlyService;
         private readonly InstitutionService _institutionService;
+        private readonly ShiftService _shiftService;
 
-        public ElderlyController(UserManager<User> userManager, ElderlyService service, InstitutionService institution)
+        public ElderlyController(UserManager<User> userManager, ElderlyService service, InstitutionService institution, ShiftService shiftService)
         {
             _userManager = userManager;
             _elderlyService = service;
             _institutionService = institution;
+            _shiftService = shiftService;
         }
 
         public async Task<IActionResult> Index(string name)
@@ -93,9 +95,11 @@ namespace Cuidado.Controllers
 
             var userId = _userManager.GetUserId(User);
             var institution = await _institutionService.FindByUserIdAsync(userId);
+
             elderly.InstitutionId = institution.Id;
 
             await _elderlyService.AddElderlyAsync(elderly);
+            await _shiftService.UpdateCountElderliesAsync(institution.Id, await _institutionService.CountAllElderliesAsync(userId));
             return RedirectToAction(nameof(Index));
         }
 
@@ -114,9 +118,11 @@ namespace Cuidado.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userId = _userManager.GetUserId(User);
+            var institution = await _institutionService.FindByUserIdAsync(userId);
             var elderly = await _elderlyService.FindByUserIdAsync(userId, id);
 
             await _elderlyService.DeleteElderlyAsync(id);
+            await _shiftService.UpdateCountElderliesAsync(institution.Id, await _institutionService.CountAllElderliesAsync(userId));
             return RedirectToAction(nameof(Index));
         }
     }
