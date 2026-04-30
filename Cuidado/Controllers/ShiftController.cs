@@ -122,7 +122,6 @@ namespace Cuidado.Controllers
                 try
                 {
                     shift.InstitutionId = institution.Id;
-                    shift.ElderlyQuantity = await _institutionService.CountAllElderliesAsync(userId);
                     await _shiftService.UpdateShiftAsync(shift);
                 }
                 catch (DbUpdateConcurrencyException)

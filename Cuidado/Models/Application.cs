@@ -15,16 +15,5 @@ namespace Cuidado.Models
         public ApplicationStatus Status { get; set; }
         public string Message { get; set; }
         public DateTime AppliedAt { get; set; }
-
-        public Application() { }
-
-        public Application(Shift shift, Caregiver caregiver, ApplicationStatus status, string message, DateTime appliedAt)
-        {
-            Shift = shift;
-            Caregiver = caregiver;
-            Status = status;
-            Message = message;
-            AppliedAt = appliedAt;
-        }
     }
 }
