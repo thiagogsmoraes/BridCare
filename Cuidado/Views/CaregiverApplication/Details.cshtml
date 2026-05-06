@@ -1,26 +1,38 @@
 @model Cuidado.Models.Application
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Application</h4>
+    <h4>Aplicação</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Shift)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Shift.Id)
+            @Html.DisplayFor(model => model.Shift.Institution.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Caregiver)
+            @Html.DisplayNameFor(model => model.Shift.StartTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Caregiver.Id)
+            @Html.DisplayFor(model => model.Shift.StartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shift.EndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shift.EndTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shift.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shift.Price)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
@@ -43,6 +55,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Voltar para Lista</a>
 </div>

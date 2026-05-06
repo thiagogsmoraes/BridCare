@@ -18,6 +18,16 @@ namespace Cuidado.Services
             return await _context.Shifts.Include(x => x.Institution).Where(x => x.Institution.UserId == id).OrderBy(x => x.StartTime).ToListAsync();
         }
 
+        public async Task<List<Shift>> FindAllOpenShiftsAsync()
+        {
+            return await _context.Shifts.Include(x => x.Institution).OrderBy(x => x.StartTime).ToListAsync();
+        }
+
+        public async Task<Shift> FindByIdAsync(int id)
+        {
+            return await _context.Shifts.Include(x => x.Institution).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Shift> FindByUserIdAsync(string id, int shiftId)
         {
             return await _context.Shifts.Include(x => x.Institution).FirstOrDefaultAsync(x => x.Id == shiftId && x.Institution.UserId == id);

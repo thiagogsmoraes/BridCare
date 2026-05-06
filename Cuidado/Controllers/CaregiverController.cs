@@ -21,7 +21,7 @@ namespace Cuidado.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User); // pega o Id do logado
-            var caregiver = await _caregiverService.FindByIdAsync(userId);
+            var caregiver = await _caregiverService.FindByUserIdAsync(userId);
             return View(caregiver);
         }
     }

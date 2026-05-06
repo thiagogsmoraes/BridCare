@@ -9,41 +9,73 @@ using Cuidado.Data;
 using Cuidado.Models;
 using Cuidado.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace Cuidado.Controllers
 {
+    [Authorize(Policy = "OnlyCaregiver")]
     public class CaregiverApplicationController : Controller
     {
         private readonly AppDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly CaregiverApplicationService _service;
+        private readonly ShiftService _shiftService;
+        private readonly CaregiverService _caregiverService;
 
-        public CaregiverApplicationController(AppDbContext context, UserManager<User> userManager, CaregiverApplicationService service)
+        public CaregiverApplicationController(AppDbContext context, UserManager<User> userManager, CaregiverApplicationService service, ShiftService shiftService, CaregiverService caregiverService)
         {
             _context = context;
             _userManager = userManager;
             _service = service;
+            _shiftService = shiftService;
+            _caregiverService = caregiverService;
         }
 
         // GET: Application
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Applications.Include(a => a.Caregiver).Include(a => a.Shift);
-            return View(await appDbContext.ToListAsync());
+            string userId = _userManager.GetUserId(User);
+            var applications = await _service.FindAllAplicationsAsync(userId);
+            return View(applications);
         }
 
-        // GET: Application/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Shifts()
+        {
+            string userId = _userManager.GetUserId(User);
+            // busca turnos abertos disponíveis
+            var shifts = await _shiftService.FindAllOpenShiftsAsync();
+            return View(shifts);
+        }
+
+        // GET: Shift/Details/5
+        public async Task<IActionResult> ShiftDetails(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var application = await _context.Applications
-                .Include(a => a.Caregiver)
-                .Include(a => a.Shift)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var shift = await _shiftService.FindByIdAsync(id);
+            if (shift == null)
+            {
+                return NotFound();
+            }
+
+            return View(shift);
+        }
+
+        // GET: Application/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            string userId = _userManager.GetUserId(User);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var application = await _service.FindByUserIdAsync(userId);
             if (application == null)
             {
                 return NotFound();
@@ -52,30 +84,25 @@ namespace Cuidado.Controllers
             return View(application);
         }
 
-        // GET: Application/Create
-        public IActionResult Create()
-        {
-            ViewData["CaregiverId"] = new SelectList(_context.Caregivers, "Id", "Id");
-            ViewData["ShiftId"] = new SelectList(_context.Shifts, "Id", "Id");
-            return View();
-        }
-
         // POST: Application/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ShiftId,CaregiverId,Status,Message,AppliedAt")] Application application)
+        public async Task<IActionResult> Apply(int id)
         {
-            if (ModelState.IsValid)
+            string userId = _userManager.GetUserId(User);
+            var shift = await _shiftService.FindByIdAsync(id);
+            var caregiver = await _caregiverService.FindByUserIdAsync(userId);
+
+            var application = new Application
             {
-                _context.Add(application);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CaregiverId"] = new SelectList(_context.Caregivers, "Id", "Id", application.CaregiverId);
-            ViewData["ShiftId"] = new SelectList(_context.Shifts, "Id", "Id", application.ShiftId);
-            return View(application);
+                ShiftId = shift.Id,
+                CaregiverId = caregiver.Id
+            };
+
+            await _service.AddApplicationAsync(application);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Application/Edit/5
@@ -171,14 +198,6 @@ namespace Cuidado.Controllers
         private bool ApplicationExists(int id)
         {
             return _context.Applications.Any(e => e.Id == id);
-        }
-
-        public async Task<IActionResult> Shifts()
-        {
-            string userId = _userManager.GetUserId(User);
-            // busca turnos abertos disponíveis
-            var shifts = await _service.FindAllAsync();
-            return View(shifts);
         }
     }
 }

@@ -33,9 +33,6 @@
 					@Html.DisplayNameFor(model => model.Status)
 				</th>
 				<th>
-					@Html.DisplayNameFor(model => model.Caregiver)
-				</th>
-				<th>
 					@Html.DisplayNameFor(model => model.CreatedAt)
 				</th>
 				<th></th>
@@ -44,38 +41,35 @@
 		<tbody>
 			@foreach (var item in Model)
 			{
-					<tr>
+				<tr>
 					<td>
 						@Html.DisplayFor(modelItem => item.Institution.Name)
 					</td>
-						<td>
+					<td>
 						@Html.DisplayFor(modelItem => item.StartTime)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.EndTime)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.Price)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.NursingKnowledgeRequired)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.Description)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.Status)
-						</td>
-						<td>
-						@Html.DisplayFor(modelItem => item.Caregiver.Id)
-						</td>
-						<td>
+					</td>
+					<td>
 						@Html.DisplayFor(modelItem => item.CreatedAt)
-						</td>
-						<td>
-							<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-						</td>
-					</tr>
+					</td>
+					<td>
+						<a asp-action="ShiftDetails" asp-route-id="@item.Id">Aplicar</a>
+					</td>
+				</tr>
 			}
 		</tbody>
 	</table>

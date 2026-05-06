@@ -13,9 +13,20 @@ namespace Cuidado.Services
             _context = context;
         }
 
-        public async Task<List<Shift>> FindAllAsync()
+        public async Task<List<Application>> FindAllAplicationsAsync(string id)
         {
-            return await _context.Shifts.Include(x => x.Institution).OrderBy(x => x.StartTime).ToListAsync();
+            return await _context.Applications.Include(x => x.Shift).ThenInclude(x => x.Institution).Include(x => x.Caregiver).Where(x => x.Caregiver.UserId == id).ToListAsync();
+        }
+
+        public async Task<Application> FindByUserIdAsync(string id)
+        {
+            return await _context.Applications.Include(x => x.Shift).ThenInclude(x => x.Institution).Include(x => x.Caregiver).FirstOrDefaultAsync(x => x.Caregiver.UserId == id);
+        }
+
+        public async Task AddApplicationAsync(Application application)
+        {
+            _context.Applications.Add(application);
+            await _context.SaveChangesAsync();
         }
     }
 }

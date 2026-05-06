@@ -17,7 +17,10 @@
 					@Html.DisplayNameFor(model => model.Shift)
 				</th>
 				<th>
-					@Html.DisplayNameFor(model => model.Caregiver)
+					@Html.DisplayNameFor(model => model.Shift.StartTime)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Shift.EndTime)
 				</th>
 				<th>
 					@Html.DisplayNameFor(model => model.Status)
@@ -36,10 +39,13 @@
 			{
 				<tr>
 					<td>
-						@Html.DisplayFor(modelItem => item.Shift.Id)
+						@Html.DisplayFor(modelItem => item.Shift.Institution.Name)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.Caregiver.Id)
+						@Html.DisplayFor(modelItem => item.Shift.StartTime)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Shift.EndTime)
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.Status)
@@ -51,9 +57,8 @@
 						@Html.DisplayFor(modelItem => item.AppliedAt)
 					</td>
 					<td>
-						<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-						<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-						<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+						<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+						<a asp-action="Delete" asp-route-id="@item.Id">Remover</a>
 					</td>
 				</tr>
 			}
