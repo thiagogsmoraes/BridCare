@@ -15,16 +15,19 @@ namespace BridCare.Models
         [DisplayName("Nome")]
         public string FullName { get; set; }
         public string CPF { get; set; }
-        [DisplayName("Data de Nascimento")] [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Data de Nascimento")][DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
         [DisplayName("Gênero")]
         public Gender Gender { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        [DisplayName("Endereço")]
         public string Adress { get; set; }
         [DisplayName("Descrição")]
         public string? Description { get; set; }
+        [DisplayName("Escolaridade")]
         public EducationLevel EducationLevel { get; set; }
+        [DisplayName("Pagamento Esperado")] [DisplayFormat(DataFormatString = "{0:F2}")]
         public double ExpectedSalary { get; set; }
         public DateTime CreatedAt { get; set; }
 

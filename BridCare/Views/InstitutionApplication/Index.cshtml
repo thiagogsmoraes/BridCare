@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BridCare.Models.Application>
+
+@{
+	ViewData["Title"] = "Aplicações";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="mb-5">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.FullName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.BirthDate)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.EducationLevel)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.ExpectedSalary)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.Adress)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver.Description)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.FullName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.BirthDate)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.EducationLevel)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.ExpectedSalary)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.Adress)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.Description)
+					</td>
+					<td>
+						<a asp-action="Details" asp-route-id="@item.Id">Aceitar</a> |
+						<a asp-action="Delete" asp-route-id="@item.Id">Recusar</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+<div>
+	<a asp-controller="Shift" asp-action="Details" asp-route-id=@ViewData["id"] class="btn btn-outline-secondary">Voltar</a>
+</div>

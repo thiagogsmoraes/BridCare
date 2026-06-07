@@ -6,7 +6,7 @@
 
 <h1>Detalhes</h1>
 
-<div>
+<div class="mb-5">
     <h4>Plantão - <a asp-action="Index">Voltar a Lista</a></h4>
     <hr />
     <dl class="row">
@@ -70,15 +70,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
-        <dt class="col-sm-2">
-            Candidaturas
-        </dt>
-        <dd class="col-sm-10">
-            @ViewData["Applications"]
-        </dd>
     </dl>
 </div>
-<div>
+<div class="mb-5">
+    <a asp-controller="InstitutionApplication" asp-action="Index" asp-route-id="@Model?.Id">Ver Candidaturas</a>
+</div>
+<div class="mb-5">
     <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a> |
     <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Deletar</a>
 </div>

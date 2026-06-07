@@ -38,7 +38,7 @@ namespace BridCare.Controllers
             string userId = _userManager.GetUserId(User);
             List<Shift> shifts = await _shiftService.FindAllAsync(userId);
 
-            ViewData["Applications"] = await _institutionApplicationService.CountAllApplications(userId);
+            ViewData["Applications"] = await _institutionApplicationService.CountAllApplicationsAsync(userId);
 
             return View(shifts);
         }
