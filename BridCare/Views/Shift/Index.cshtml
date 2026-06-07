@@ -1,0 +1,92 @@
+@model IEnumerable<BridCare.Models.Shift>
+
+@{
+	ViewData["Title"] = "Plantões";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p>
+	<a asp-action="Create" class="btn btn-success">Adicionar Turno</a>
+</p>
+
+<div class="mb-5">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.StartTime)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.EndTime)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Price)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.NursingKnowledgeRequired)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Description)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Status)
+				</th>
+				<th>
+					Candidaturas
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Caregiver)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CreatedAt)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.StartTime)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EndTime)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.NursingKnowledgeRequired)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Status)
+					</td>
+					<td>
+						@{
+							var apps = ViewData["Applications"] as Dictionary<int, int>;
+							var count = apps != null && apps.ContainsKey(item.Id) ? apps[item.Id] : 0;
+						}
+						@count
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Caregiver.Id)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CreatedAt)
+					</td>
+					<td>
+						<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+<div>
+	<a asp-controller="Institution" asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
+</div>

@@ -1,0 +1,45 @@
+﻿@model BridCare.Models.Institution
+
+@{
+	ViewData["Titulo"] = "Instituição";
+}
+
+<h1>@ViewData["Titulo"]</h1>
+
+<div>
+	<h4>Dados</h4>
+	<hr />
+	<dl class="row">
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Type)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Type)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Email)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Email)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Description)
+		</dd>
+	</dl>
+</div>
+<div class="mb-5">
+	<a asp-controller="Elderly" asp-action="Index">Idosos</a>
+	<a asp-controller="Shift" asp-action="Index">Plantões</a>
+</div>
+<div>
+	<a asp-controller="Auth" asp-action="Logout" class="btn btn-danger">Log Out</a>
+</div>

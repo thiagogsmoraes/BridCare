@@ -1,0 +1,26 @@
+﻿using BridCare.Data;
+using BridCare.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace BridCare.Services
+{
+    public class InstitutionService
+    {
+        private readonly AppDbContext _context;
+
+        public InstitutionService(AppDbContext context) 
+        {
+            _context = context;
+        }
+
+        public async Task<Institution> FindByUserIdAsync(string id)
+        {
+            return await _context.Institutions.FirstOrDefaultAsync(x => x.UserId == id);
+        }
+
+        public async Task<int> CountAllElderliesAsync(string id)
+        {
+            return await _context.Elderlies.Include(x => x.Institution).Where(x => x.Institution.UserId == id).CountAsync();
+        }
+    }
+}

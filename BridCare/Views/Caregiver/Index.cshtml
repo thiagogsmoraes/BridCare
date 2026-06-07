@@ -1,0 +1,50 @@
+﻿@model BridCare.Models.Caregiver
+
+@{
+	ViewData["Titulo"] = "Cuidador";
+}
+
+<h1>@ViewData["Titulo"]</h1>
+
+<div>
+	<h4>Dados</h4>
+	<hr />
+	<dl class="row">
+		<dt>
+			@Html.DisplayNameFor(Model => Model.FullName)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.FullName)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.BirthDate)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.BirthDate)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Gender)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Gender)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Email)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Email)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Description)
+		</dd>
+	</dl>
+</div>
+<div class="mb-5">
+	<a asp-controller="CaregiverApplication" asp-action="Index">Aplicações</a>
+</div>
+<div>
+	<a asp-controller="Auth" asp-action="Logout" class="btn btn-danger">Log Out</a>
+</div>

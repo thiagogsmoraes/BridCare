@@ -1,0 +1,51 @@
+﻿@model BridCare.Models.Elderly
+
+@{
+	ViewData["Titulo"] = "Idoso";
+}
+
+<h1>@Model.Name</h1>
+
+<div>
+	<h4>Deseja deletar este idoso?</a></h4>
+	<hr />
+	@*<dl class="row">
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.BirthDate)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.BirthDate)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Gender)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Gender)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Condition)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Condition)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(Model => Model.Notes)
+		</dt>
+		<dd>
+			@Html.DisplayFor(Model => Model.Notes)
+		</dd>
+	</dl>*@
+</div>
+<div class="mb-5">
+	<form asp-action="Delete" method="post">
+		<input type="hidden" asp-for="Id" />
+		<button type="submit" class="btn btn-danger">Delete</button>
+		<a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Cancelar</a>
+	</form>
+</div>
