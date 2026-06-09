@@ -1,5 +1,6 @@
 ﻿using BridCare.Data;
 using BridCare.Models;
+using BridCare.Models.Enums;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,11 @@ namespace BridCare.Services
         public async Task<List<Application>> FindAllApplicationsAsync(string userId, int id)
         {
             return await _context.Applications.Include(x => x.Shift).ThenInclude(x => x.Institution).Include(x => x.Caregiver).Where(x => x.Shift.Institution.UserId == userId && x.ShiftId == id).ToListAsync();
+        }
+
+        public async Task UpdateApplicationStatusAsync(int id, ApplicationStatus status)
+        {
+            await _context.Applications.Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.Status, status));
         }
     }
 }

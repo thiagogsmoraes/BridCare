@@ -1,4 +1,5 @@
 ﻿using BridCare.Models;
+using BridCare.Models.Enums;
 using BridCare.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,20 @@ namespace BridCare.Controllers
             ViewData["id"] = id;
 
             return View(applications);
+        }
+
+        public async Task<IActionResult> UpdateStatus(int id, bool accepted, int shiftId)
+        {
+            if (accepted)
+            {
+                await _institutionApplicationService.UpdateApplicationStatusAsync(id, ApplicationStatus.Accepted);
+            }
+            else
+            {
+                await _institutionApplicationService.UpdateApplicationStatusAsync(id, ApplicationStatus.Rejected);
+            }
+
+            return RedirectToAction(nameof(Index), new { id = shiftId });
         }
     }
 }

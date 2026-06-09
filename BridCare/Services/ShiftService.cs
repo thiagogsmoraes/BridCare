@@ -50,6 +50,11 @@ namespace BridCare.Services
             await _context.Shifts.Include(x => x.Institution).Where(x => x.Institution.Id == institutionId).ExecuteUpdateAsync(x => x.SetProperty(x => x.ElderlyQuantity, countElderlies));
         }
 
+        //public async Task UpdateShiftCaregiverAsync(int id, int caregiverId)
+        //{
+        //    await _context.Shifts.Include(x => x.Applications)
+        //}
+
         public async Task DeleteShiftAsync(int id)
         {
             var shift = await _context.Shifts.FirstOrDefaultAsync(x => x.Id == id);
