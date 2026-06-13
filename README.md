@@ -1,28 +1,16 @@
 <h1 align="center">BridCare</h1>
 
 <p align="center">
-  Plataforma web para gerenciamento de plantões e contratação de cuidadores por instituições de cuidado.
+  Sistema web para intermediação entre cuidadores de idosos e instituições de atendimento, permitindo o gerenciamento de plantões, candidaturas e futuras avaliações entre as partes.
 </p>
 
 ---
 
 ## Sobre o Projeto
 
-O BridCare é uma aplicação web desenvolvida para conectar instituições de cuidado e cuidadores profissionais por meio de uma plataforma centralizada para gerenciamento de plantões.
+O BridCare é uma plataforma desenvolvida para conectar instituições de atendimento e cuidadores de idosos, centralizando o processo de divulgação de plantões, candidatura de profissionais e contratação.
 
-A plataforma permite que instituições publiquem oportunidades de trabalho e que cuidadores visualizem, candidatem-se e participem dos plantões disponíveis.
-
-Além do gerenciamento de oportunidades, o sistema contempla mecanismos de avaliação entre as partes envolvidas, contribuindo para a construção de um ambiente baseado em confiança e qualidade dos serviços prestados.
-
----
-
-## Objetivos
-
-- Centralizar a divulgação e gestão de plantões.
-- Facilitar o processo de contratação de cuidadores.
-- Organizar o gerenciamento de profissionais e instituições.
-- Promover transparência por meio de avaliações após a execução dos serviços.
-- Fornecer uma plataforma digital para apoio às atividades de cuidado.
+O projeto foi desenvolvido utilizando ASP.NET Core MVC e tem como objetivo aplicar conceitos de arquitetura em camadas, modelagem relacional, autenticação de usuários e implementação de regras de negócio.
 
 ---
 
@@ -30,141 +18,239 @@ Além do gerenciamento de oportunidades, o sistema contempla mecanismos de avali
 
 ### Instituições
 
-- Cadastro e gerenciamento de perfil institucional.
-- Cadastro e gerenciamento de idosos.
-- Criação e gerenciamento de plantões.
-- Análise de candidaturas.
-- Seleção de cuidadores.
-- Avaliação dos profissionais contratados.
+* Cadastro e autenticação de usuários.
+* Cadastro de instituições.
+* Cadastro de idosos.
+* Criação e gerenciamento de plantões.
+* Seleção de cuidadores candidatos.
 
 ### Cuidadores
 
-- Cadastro e gerenciamento de perfil profissional.
-- Consulta de plantões disponíveis.
-- Candidatura a oportunidades.
-- Histórico de candidaturas e plantões.
-- Avaliação de instituições após a conclusão dos serviços.
+* Cadastro e autenticação de usuários.
+* Cadastro de perfil profissional.
+* Visualização de plantões disponíveis.
+* Candidatura para plantões.
 
 ### Plataforma
 
-- Autenticação e controle de acesso.
-- Gerenciamento de usuários.
-- Controle do ciclo de vida dos plantões.
-- Sistema de avaliações entre participantes.
+* Controle de acesso por perfis.
+* Gerenciamento de usuários.
+* Controle de candidaturas.
+* Aplicação de regras de negócio para contratação.
 
 ---
 
-## Fluxo do Sistema
+## Fluxo da Aplicação
 
 ```text
 Instituição
-     │
-     ▼
+    ↓
 Cria Plantão
-     │
-     ▼
-Cuidador se candidata
-     │
-     ▼
-Instituição seleciona
-     │
-     ▼
-Plantão executado
-     │
-     ▼
-Avaliação mútua
+    ↓
+Cuidadores Visualizam
+    ↓
+Cuidadores se Candidatam
+    ↓
+Instituição Seleciona
+    ↓
+Plantão Executado
+    ↓
+Avaliações
 ```
 
 ---
 
-## Arquitetura da Aplicação
+## Arquitetura
+
+A aplicação segue o padrão MVC (Model-View-Controller), com separação das responsabilidades em camadas para facilitar manutenção e futura evolução da arquitetura.
 
 ```text
-ASP.NET Core MVC
-        │
-        ▼
 Controllers
-        │
-        ▼
+      ↓
 Services
-        │
-        ▼
+      ↓
 Entity Framework Core
-        │
-        ▼
+      ↓
 SQL Server
 ```
 
-A aplicação segue o padrão MVC (Model-View-Controller), utilizando o Entity Framework Core como camada de acesso a dados e o SQL Server como sistema gerenciador de banco de dados.
-
 ---
 
-## Modelo Entidade Relacionamento (MER)
+## Modelagem de Dados
 
 <p align="center">
   <img width="1653" height="1633" alt="Cuidado" src="https://github.com/user-attachments/assets/965b6063-7ff3-4fbb-8565-7732a71c3023" />
 </p>
 
-O modelo de dados foi estruturado para suportar o gerenciamento de usuários, instituições, cuidadores, idosos, plantões, candidaturas e avaliações.
+### Principais Entidades
 
-As principais entidades do sistema são:
-
-| Entidade | Descrição |
-|-----------|------------|
-| Users | Responsável pela autenticação e identificação dos usuários. |
-| Caregivers | Dados específicos dos cuidadores. |
-| Institutions | Dados específicos das instituições. |
-| Elderlies | Idosos vinculados às instituições. |
-| Shifts | Plantões disponibilizados pelas instituições. |
-| Applications | Candidaturas realizadas pelos cuidadores. |
-| Reviews | Avaliações realizadas após a conclusão dos plantões. |
-
----
-
-## Regras de Negócio
-
-- Um plantão pode receber múltiplas candidaturas.
-- Apenas um cuidador pode ser selecionado para cada plantão.
-- Um cuidador pode candidatar-se a diversos plantões.
-- Uma instituição pode criar diversos plantões.
-- Avaliações somente podem ser realizadas após a conclusão do plantão.
-- Não são permitidas candidaturas duplicadas para o mesmo plantão.
-- Não é permitido selecionar mais de um cuidador para o mesmo plantão.
-- Apenas o proprietário do perfil pode alterar seus dados.
-- Usuários somente podem avaliar participantes envolvidos no plantão.
+* Users
+* Caregivers
+* Institutions
+* Elderlies
+* Shifts
+* Applications
+* Reviews
 
 ---
 
 ## Tecnologias Utilizadas
 
-- ASP.NET Core MVC
-- C#
-- Entity Framework Core
-- SQL Server
-- Bootstrap
-- HTML5
-- CSS3
-- JavaScript
+### Back-end
+
+* C#
+* .NET 8
+* ASP.NET Core MVC
+* Entity Framework Core
+* ASP.NET Identity
+* LINQ
+
+### Banco de Dados
+
+* SQL Server
+
+### Front-end
+
+* HTML
+* CSS
+* JavaScript
+* Bootstrap
+
+### Ferramentas
+
+* Git
+* GitHub
+* Visual Studio
 
 ---
 
-## Estrutura do Projeto
+## Conceitos Aplicados
+
+Durante o desenvolvimento deste projeto foram aplicados:
+
+* ASP.NET Core MVC
+* Entity Framework Core
+* ASP.NET Identity
+* LINQ
+* SQL Server
+* Migrations
+* Injeção de Dependência
+* Arquitetura em Camadas
+* Relacionamentos 1:N e N:N
+* Autenticação e Autorização
+* Regras de Negócio
+* Padrão MVC
+
+---
+
+## Como Executar
+
+### Pré-requisitos
+
+* .NET 8 SDK
+* SQL Server
+* Visual Studio 2022 ou superior
+
+### Passos
+
+1. Clone o repositório
+
+```bash
+git clone https://github.com/thiagogsmoraes/BridCare.git
+```
+
+2. Acesse o diretório do projeto
+
+```bash
+cd BridCare
+```
+
+3. Configure a Connection String no arquivo:
+
+```json
+appsettings.json
+```
+
+4. Execute as migrations
+
+```powershell
+Update-Database
+```
+
+ou
+
+```bash
+dotnet ef database update
+```
+
+5. Execute a aplicação
+
+```bash
+dotnet run
+```
+
+6. Acesse pelo navegador
 
 ```text
-BridCare
-│
-├── Controllers
-├── Models
-├── Services
-├── Data
-├── Views
-├── wwwroot
-├── Migrations
-└── Program.cs
+https://localhost:xxxx
 ```
 
 ---
 
-## Status do Projeto
+## Próximos Passos
 
-O projeto encontra-se em desenvolvimento como parte de um Trabalho de Conclusão de Curso (TCC), com foco na aplicação de conceitos de desenvolvimento web, modelagem de dados e arquitetura de software utilizando a plataforma .NET.
+O projeto encontra-se em fase de consolidação das regras de negócio e evolução arquitetural. As próximas etapas previstas incluem:
+
+* Finalização do fluxo de candidaturas para plantões.
+* Implementação do sistema de avaliações entre cuidadores e instituições.
+* Consolidação e validação das regras de negócio da plataforma.
+* Refatoração da camada de serviços visando maior desacoplamento entre interface e domínio.
+* Evolução da arquitetura para disponibilização de API REST.
+* Implementação de autenticação baseada em JWT.
+* Documentação dos endpoints utilizando Swagger/OpenAPI.
+* Desenvolvimento de uma aplicação web desacoplada consumindo a API.
+* Implementação de testes automatizados.
+
+---
+
+## Roadmap
+
+### Concluído
+
+* [x] Autenticação e autorização com ASP.NET Identity
+* [x] Cadastro de usuários
+* [x] Cadastro de instituições
+* [x] Cadastro de cuidadores
+* [x] Cadastro de idosos
+* [x] Criação e gerenciamento de plantões
+* [x] Modelagem relacional completa da aplicação
+* [x] Implementação da arquitetura MVC
+* [x] Integração com SQL Server utilizando Entity Framework Core
+* [x] Estruturação em camadas para futura evolução da aplicação
+
+### Em Desenvolvimento
+
+* [ ] Fluxo completo de candidaturas para plantões
+* [ ] Processo de seleção de cuidadores
+* [ ] Sistema de avaliações (Reviews)
+* [ ] Consolidação e validação das regras de negócio
+* [ ] Refatoração da camada de serviços
+
+### Planejado
+
+* [ ] API REST com ASP.NET Core Web API
+* [ ] Autenticação JWT
+* [ ] Documentação Swagger/OpenAPI
+* [ ] Testes automatizados
+* [ ] Aplicação web consumindo a API
+
+---
+
+## Autor
+
+**Thiago Galvão de Souza Moraes**
+
+* LinkedIn: [thiagogsmoraes](https://linkedin.com/in/thiagogsmoraes)
+* GitHub: [thiagogsmoraes](https://github.com/thiagogsmoraes)
+
+Projeto desenvolvido para fins de estudo, prática de desenvolvimento .NET e evolução profissional na área de Engenharia de Software.
